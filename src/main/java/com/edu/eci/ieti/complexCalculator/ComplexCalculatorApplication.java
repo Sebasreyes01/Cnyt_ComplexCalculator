@@ -14,6 +14,7 @@ public class ComplexCalculatorApplication {
 		ComplexNumber con = c1.conjugate();
 		double pha = c1.getPhase();
 		ComplexNumber ptc = cbo.polarToCartesian(Math.sqrt(2), Math.PI / 4);
+		String ctp = cbo.cartesianToPolar(new ComplexNumber(1, 1));
 		System.out.println(sum.getComplexNumber());
 		System.out.println(sub.getComplexNumber());
 		System.out.println(mul.getComplexNumber());
@@ -22,6 +23,7 @@ public class ComplexCalculatorApplication {
 		System.out.println(con.getComplexNumber());
 		System.out.println(pha);
 		System.out.println(ptc.getComplexNumber());
+		System.out.println(ctp);
 	}
 
 }

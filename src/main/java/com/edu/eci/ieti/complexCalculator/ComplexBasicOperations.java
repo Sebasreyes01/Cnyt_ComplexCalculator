@@ -1,5 +1,7 @@
 package com.edu.eci.ieti.complexCalculator;
 
+import java.text.DecimalFormat;
+
 public class ComplexBasicOperations {
 
     public ComplexNumber sum(ComplexNumber c1, ComplexNumber c2) {
@@ -27,6 +29,13 @@ public class ComplexBasicOperations {
         double a = p * Math.cos(t);
         double b = p * Math.sin(t);
         return new ComplexNumber(a,b);
+    }
+
+    public String cartesianToPolar(ComplexNumber c1) {
+        double p = Math.sqrt(Math.pow(c1.getRealNumber(), 2) + Math.pow(c1.getImaginaryNumber(), 2));
+        double t = Math.atan2(c1.getImaginaryNumber(), c1.getRealNumber());
+        DecimalFormat df = new DecimalFormat("#.##");
+        return "(" + df.format(p) + ", " + df.format(t) +")";
     }
 
 }

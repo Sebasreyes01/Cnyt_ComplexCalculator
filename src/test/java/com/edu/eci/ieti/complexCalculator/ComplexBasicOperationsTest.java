@@ -52,6 +52,14 @@ public class ComplexBasicOperationsTest {
     }
 
     @Test
+    public void cartesianToPolarTest() {
+        ComplexNumber c1 = new ComplexNumber(1, 1);
+        String expected = "(1.41, 0.79)";
+        String result = cbo.cartesianToPolar(c1);
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void modulusTest() {
         ComplexNumber c1 = new ComplexNumber(1, -1);
         double expected = Math.sqrt(2);
