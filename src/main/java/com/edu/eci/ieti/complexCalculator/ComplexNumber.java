@@ -43,7 +43,6 @@ public class ComplexNumber {
 
 	@Override
 	public boolean equals(Object o) {
-
 		if (o == this) {
 			return true;
 		}
@@ -51,8 +50,6 @@ public class ComplexNumber {
 			return false;
 		}
 		ComplexNumber c = (ComplexNumber) o;
-
-		// Compare the data members and return accordingly
 		return Double.compare(realNumber, c.getRealNumber()) == 0 && Double.compare(imaginaryNumber, c.getImaginaryNumber()) == 0;
 	}
 }

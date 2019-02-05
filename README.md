@@ -7,4 +7,7 @@
 - Modulus
 - Conjugate
 - Conversion between polar and cartesian representation
-- return the phase of a complex number
+- Return the phase of a complex number
+- Vector and matrix addition
+- Vector and matrix inverse
+- vector and matrix scalar multiplication
