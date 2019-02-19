@@ -4,6 +4,11 @@ public class ComplexMatrix {
 
 	ComplexNumber[][] matrix;
 
+	/**
+	 * The constructor of a new complex matrix.
+	 * @param matrix The matrix that will be used.
+	 * @throws Exception The rows of the matrix have to be the same length.
+	 */
 	public ComplexMatrix(ComplexNumber[][] matrix) throws Exception {
 		int l = matrix[0].length;
 		for (int i = 0; i < matrix.length; i++) {
@@ -14,10 +19,18 @@ public class ComplexMatrix {
 		this.matrix = matrix;
 	}
 
+	/**
+	 * Obtains the matrix.
+	 * @return The matrix.
+	 */
 	public ComplexNumber[][] getMatrix() {
 		return matrix;
 	}
 
+	/**
+	 * Calculates the inverse of a matrix.
+	 * @return The inverse of a matrix.
+	 */
 	public ComplexMatrix inverse() {
 		ComplexMatrix r = null;
 		try {
@@ -33,6 +46,11 @@ public class ComplexMatrix {
 		return r;
 	}
 
+	/**
+	 * Verifies if two matrices are equal.
+	 * @param o The object that is going to be compered.
+	 * @return True or false depending if the matrices are equal.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
