@@ -166,4 +166,8 @@ public class ComplexOperationsTest {
 		ComplexMatrix actual = m.inverse();
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void matrixMultiplication() {
+	}
 }

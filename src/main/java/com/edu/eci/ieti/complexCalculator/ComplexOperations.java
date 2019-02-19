@@ -159,4 +159,24 @@ public class ComplexOperations {
 		return r;
 	}
 
+	/**
+	 * Calculates the multiplication of 2 complex square matrix.
+	 * @param m1 The first complex square matrix of the multiplication.
+	 * @param m2 The second complex square matrix of the multiplication.
+	 * @return The multiplication of the 2 complex square matrices.
+	 * @throws Exception The matrices are not square.
+	 */
+	public static ComplexMatrix matrixMultiplication(ComplexMatrix m1, ComplexMatrix m2) throws Exception {
+		if (m1.getMatrix().length != m2.getMatrix()[0].length) {
+			throw new Exception("The matrices are not square");
+		} else {
+			ComplexMatrix r = createMatrix(m1.getMatrix().length, m1.getMatrix()[0].length);
+			for (int i = 0; i < m2.getMatrix()[0].length;i++) {
+				for (int j = 0; j < m1.getMatrix()[0].length; j++) {
+					r.getMatrix()[i][j] = multiplication(m1.getMatrix()[i][j],m2.getMatrix()[j][i]);
+				}
+			}
+			return r;
+		}
+	}
 }
