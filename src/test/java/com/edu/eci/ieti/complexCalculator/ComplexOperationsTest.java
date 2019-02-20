@@ -370,7 +370,7 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void vectorNorm() {
+	public void vectorNormTest() {
 		double[] v = new double[]{3,-6,2};
 		double actual = ComplexOperations.vectorNorm(v);
 		double expected = 7;
@@ -378,11 +378,40 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void vectorDistance() throws Exception {
+	public void vectorDistanceTest() throws Exception {
 		double[] v1 = new double[]{3,1,2};
 		double[] v2 = new double[]{2,2,-1};
 		double expected = Math.sqrt(11);
 		double actual = ComplexOperations.vectorDistance(v1, v2);
 		assertEquals(expected, actual,0);
+	}
+
+	@Test
+	public void matrixNormTest() throws Exception {
+		double[][] m = new double[2][2];
+		m[0][0] = 3;
+		m[0][1] = 5;
+		m[1][0] = 2;
+		m[1][1] = 3;
+		double expected = Math.sqrt(47);
+		double actual = ComplexOperations.matrixNorm(m);
+		assertEquals(expected, actual, 0.7);
+	}
+
+	@Test
+	public void matrixDistanceTest() throws Exception {
+		double[][] m1 = new double[2][2];
+		m1[0][0] = 3;
+		m1[0][1] = 5;
+		m1[1][0] = 2;
+		m1[1][1] = 3;
+		double[][] m2 = new double[2][2];
+		m2[0][0] = 1;
+		m2[0][1] = 6;
+		m2[1][0] = 2;
+		m2[1][1] = 4;
+		double expected = 2.45;
+		double actual = ComplexOperations.matrixDistance(m1, m2);
+		assertEquals(expected, actual, 0.1);
 	}
 }

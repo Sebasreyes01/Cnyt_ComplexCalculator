@@ -243,6 +243,41 @@ public class ComplexOperations {
 	}
 
 	/**
+	 * Calculates the norm of a real matrix.
+	 * @param m The given real matrix.
+	 * @return The norm of a real matrix.
+	 * @throws Exception "The matrix is not square".
+	 */
+	public static double matrixNorm(double[][] m) throws Exception{
+		if (m.length != m[0].length) {
+			throw new Exception("The matrix is not square");
+		} else {
+			double[][] mt = new double[m.length][m[0].length];
+			for (int i = 0;i < mt.length;i++) {
+				for (int j = 0;j < mt.length;j++) {
+					mt[i][j] = m[j][i];
+				}
+			}
+			double[][] r = new double[m.length][m[0].length];
+			double s = 0;
+			for (int i = 0; i < mt.length; i++) {
+				for (int j = 0; j < mt[0].length; j++) {
+					for (int k = 0; k < mt.length; k++) {
+						s = s + (mt[i][k] * m[i][j]);
+					}
+					r[i][j] = s;
+					s = 0;
+				}
+			}
+			double trace = 0;
+			for (int i = 0; i < r.length; i++) {
+				trace = trace + r[i][i];
+			}
+			return Math.sqrt(trace);
+		}
+	}
+
+	/**
 	 * Calculates the distance of 2 real vectors.
 	 * @param v1 The first given vector.
 	 * @param v2 The second given vector.
@@ -260,7 +295,48 @@ public class ComplexOperations {
 			double r = Math.sqrt(s);
 			return r;
 		}
+	}
 
+	/**
+	 * Calculates the distance of 2 real matrices.
+	 * @param m1 The first given matrix.
+	 * @param m2 The second given matrix.
+	 * @return The sitance of 2 real matrices.
+	 * @throws Exception "The matrix is not square".
+	 */
+	public static double matrixDistance(double[][] m1, double[][] m2) throws Exception {
+		if (m1.length != m1[0].length) {
+			throw new Exception("The matrix is not square");
+		} else {
+			double ms[][] = new double[m1.length][m1[0].length];
+			for (int i = 0; i < ms.length; i++) {
+				for (int j = 0; j < ms[0].length; j++) {
+					ms[i][j] = m1[i][j] - m2[i][j];
+				}
+			}
+			double[][] mt = new double[ms.length][ms[0].length];
+			for (int i = 0;i < mt.length;i++) {
+				for (int j = 0;j < mt.length;j++) {
+					mt[i][j] = ms[j][i];
+				}
+			}
+			double[][] r = new double[mt.length][mt[0].length];
+			double s = 0;
+			for (int i = 0; i < mt.length; i++) {
+				for (int j = 0; j < mt[0].length; j++) {
+					for (int k = 0; k < mt.length; k++) {
+						s = s + (mt[i][k] * ms[i][j]);
+					}
+					r[i][j] = s;
+					s = 0;
+				}
+			}
+			double trace = 0;
+			for (int i = 0; i < r.length; i++) {
+				trace = trace + r[i][i];
+			}
+			return Math.sqrt(trace);
+		}
 	}
 
 	/**
