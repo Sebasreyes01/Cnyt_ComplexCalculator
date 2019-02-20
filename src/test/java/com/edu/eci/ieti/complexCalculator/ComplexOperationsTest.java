@@ -231,6 +231,46 @@ public class ComplexOperationsTest {
     }
 
 	@Test
+	public void vectorConjugate() {
+		ComplexVector v = new ComplexVector(new ComplexNumber[]{new ComplexNumber(5,6), new ComplexNumber(3,2), new ComplexNumber(-7,1)});
+		ComplexVector expected = new ComplexVector(new ComplexNumber[]{new ComplexNumber(5,-6), new ComplexNumber(3,-2), new ComplexNumber(-7,-1)});
+		ComplexVector actual = v.conjugate();
+		assertEquals(expected, actual);
+	}
+
+    @Test
+	public void matrixTransposeTest() throws Exception {
+		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
+		m.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m.getMatrix()[0][1] = new ComplexNumber(9, 5);
+		m.getMatrix()[1][0] = new ComplexNumber(5, -6);
+		m.getMatrix()[1][1] = new ComplexNumber(1, 4);
+		ComplexMatrix expected = new ComplexMatrix(new ComplexNumber[2][2]);
+		expected.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		expected.getMatrix()[0][1] = new ComplexNumber(5, -6);
+		expected.getMatrix()[1][0] = new ComplexNumber(9, 5);
+		expected.getMatrix()[1][1] = new ComplexNumber(1, 4);
+		ComplexMatrix actual = m.transpose();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void matrixConjugateTest() throws Exception {
+		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
+		m.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m.getMatrix()[0][1] = new ComplexNumber(9, 5);
+		m.getMatrix()[1][0] = new ComplexNumber(5, -6);
+		m.getMatrix()[1][1] = new ComplexNumber(1, 4);
+		ComplexMatrix expected = new ComplexMatrix(new ComplexNumber[2][2]);
+		expected.getMatrix()[0][0] = new ComplexNumber(3, -2);
+		expected.getMatrix()[0][1] = new ComplexNumber(9, -5);
+		expected.getMatrix()[1][0] = new ComplexNumber(5, 6);
+		expected.getMatrix()[1][1] = new ComplexNumber(1, -4);
+		ComplexMatrix actual = m.conjugate();
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	public void adjointTest() throws Exception {
 		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
 		m.getMatrix()[0][0] = new ComplexNumber(3, 2);

@@ -220,13 +220,9 @@ public class ComplexOperations {
 		if (v1.getVector().length != v2.getVector().length) {
 			throw new Exception("The length of the 2 vectors is different");
 		} else {
-			ComplexVector vt = new ComplexVector(new ComplexNumber[v1.getVector().length]);
 			ComplexNumber r = new ComplexNumber(0,0);
-			for (int i = 0; i < v1.getVector().length; i++) {
-				vt.getVector()[i] = v1.getVector()[i].conjugate();
-			}
-			for (int i = 0; i < vt.getVector().length;i++) {
-				r = sum(r, multiplication(vt.getVector()[i], v2.getVector()[i]));
+			for (int i = 0; i < v1.getVector().length;i++) {
+				r = sum(r, multiplication(v1.conjugate().getVector()[i], v2.getVector()[i]));
 			}
 			return r;
 		}

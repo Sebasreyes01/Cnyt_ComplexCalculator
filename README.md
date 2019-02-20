@@ -19,6 +19,9 @@ This is a JAVA library of a calculator of complex numbers, complex vectors and c
 - Multiplication of complex matrices.
 - Action of a complex matrix on a complex vector.
 - Inner product of complex vectors.
+- Conjugate of a complex vector.
+- Transpose of a complex matrix.
+- Conjugate of a complex matrix.
 - Adjoint of a complex matrix.
 - Checking if a complex matrix is hermitian.
 - Checking if a complex matrix is unitary.
