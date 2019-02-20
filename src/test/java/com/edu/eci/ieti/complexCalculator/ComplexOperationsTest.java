@@ -88,7 +88,7 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void vectorsAddition() throws Exception{
+	public void vectorsAdditionTest() throws Exception{
 		ComplexVector v1 = new ComplexVector(new ComplexNumber[]{new ComplexNumber(1,2), new ComplexNumber(3,4), new ComplexNumber(5,6)});
 		ComplexVector v2 = new ComplexVector(new ComplexNumber[]{new ComplexNumber(7,8), new ComplexNumber(9,0), new ComplexNumber(1,2)});
 		ComplexVector expected = new ComplexVector(new ComplexNumber[]{new ComplexNumber(8,10), new ComplexNumber(12,4), new ComplexNumber(6,8)});
@@ -97,7 +97,7 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void vectorScalarMultiplication() {
+	public void vectorScalarMultiplicationTest() {
 		ComplexVector v = new ComplexVector(new ComplexNumber[]{new ComplexNumber(1,2), new ComplexNumber(3,4), new ComplexNumber(5,6)});
 		ComplexNumber c = new ComplexNumber(7, 8);
 		ComplexVector actual = ComplexOperations.vectorScalarMultiplication(c, v);
@@ -106,7 +106,7 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void matrixAddition() throws Exception{
+	public void matrixAdditionTest() throws Exception{
 		ComplexMatrix m1 = new ComplexMatrix(new ComplexNumber[2][2]);
 		m1.getMatrix()[0][0] = new ComplexNumber(1, 2);
 		m1.getMatrix()[0][1] = new ComplexNumber(5, 6);
@@ -127,7 +127,7 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void matrixScalarMultiplication() throws Exception{
+	public void matrixScalarMultiplicationTest() throws Exception{
 		ComplexNumber c = new ComplexNumber(9, 2);
 		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
 		m.getMatrix()[0][0] = new ComplexNumber(1, 2);
@@ -144,7 +144,7 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void vectorInverse() {
+	public void vectorInverseTest() {
 		ComplexVector v = new ComplexVector(new ComplexNumber[]{new ComplexNumber(1,2), new ComplexNumber(3,4), new ComplexNumber(5,6)});
 		ComplexVector expected = new ComplexVector(new ComplexNumber[]{new ComplexNumber(-1,-2), new ComplexNumber(-3,-4), new ComplexNumber(-5,-6)});
 		ComplexVector actual = v.inverse();
@@ -152,7 +152,7 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void matrixInverse() throws Exception{
+	public void matrixInverseTest() throws Exception{
 		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
 		m.getMatrix()[0][0] = new ComplexNumber(1, 2);
 		m.getMatrix()[0][1] = new ComplexNumber(5, 6);
@@ -168,6 +168,164 @@ public class ComplexOperationsTest {
 	}
 
 	@Test
-	public void matrixMultiplication() {
+	public void matrixMultiplicationTest() throws Exception {
+		ComplexMatrix m1 = new ComplexMatrix(new ComplexNumber[3][3]);
+		m1.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m1.getMatrix()[0][1] = new ComplexNumber(0, 0);
+		m1.getMatrix()[0][2] = new ComplexNumber(5, -6);
+		m1.getMatrix()[1][0] = new ComplexNumber(1, 0);
+		m1.getMatrix()[1][1] = new ComplexNumber(4, 2);
+		m1.getMatrix()[1][2] = new ComplexNumber(0, 1);
+		m1.getMatrix()[2][0] = new ComplexNumber(4, -1);
+		m1.getMatrix()[2][1] = new ComplexNumber(0, 0);
+		m1.getMatrix()[2][2] = new ComplexNumber(4, 0);
+		ComplexMatrix m2 = new ComplexMatrix(new ComplexNumber[3][3]);
+		m2.getMatrix()[0][0] = new ComplexNumber(5, 0);
+		m2.getMatrix()[0][1] = new ComplexNumber(2, -1);
+		m2.getMatrix()[0][2] = new ComplexNumber(6, -4);
+		m2.getMatrix()[1][0] = new ComplexNumber(0, 0);
+		m2.getMatrix()[1][1] = new ComplexNumber(4, 5);
+		m2.getMatrix()[1][2] = new ComplexNumber(2, 0);
+		m2.getMatrix()[2][0] = new ComplexNumber(7, -4);
+		m2.getMatrix()[2][1] = new ComplexNumber(2, 7);
+		m2.getMatrix()[2][2] = new ComplexNumber(0, 0);
+		ComplexMatrix expected = new ComplexMatrix(new ComplexNumber[3][3]);
+		expected.getMatrix()[0][0] = new ComplexNumber(26, -52);
+		expected.getMatrix()[0][1] = new ComplexNumber(60, 24);
+		expected.getMatrix()[0][2] = new ComplexNumber(26, 0);
+		expected.getMatrix()[1][0] = new ComplexNumber(9, 7);
+		expected.getMatrix()[1][1] = new ComplexNumber(1, 29);
+		expected.getMatrix()[1][2] = new ComplexNumber(14, 0);
+		expected.getMatrix()[2][0] = new ComplexNumber(48, -21);
+		expected.getMatrix()[2][1] = new ComplexNumber(15, 22);
+		expected.getMatrix()[2][2] = new ComplexNumber(20, -22);
+		ComplexMatrix actual = ComplexOperations.matrixMultiplication(m1, m2);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void actionMatrixVectorTest() throws Exception {
+		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[3][3]);
+		m.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m.getMatrix()[0][1] = new ComplexNumber(0, 0);
+		m.getMatrix()[0][2] = new ComplexNumber(5, -6);
+		m.getMatrix()[1][0] = new ComplexNumber(1, 0);
+		m.getMatrix()[1][1] = new ComplexNumber(4, 2);
+		m.getMatrix()[1][2] = new ComplexNumber(0, 1);
+		m.getMatrix()[2][0] = new ComplexNumber(4, -1);
+		m.getMatrix()[2][1] = new ComplexNumber(0, 0);
+		m.getMatrix()[2][2] = new ComplexNumber(4, 0);
+		ComplexVector v = new ComplexVector(new ComplexNumber[]{new ComplexNumber(7,8), new ComplexNumber(9,0), new ComplexNumber(1,2)});
+		ComplexVector expected = new ComplexVector(new ComplexNumber[]{new ComplexNumber(22,42), new ComplexNumber(41,27), new ComplexNumber(40,33)});
+		ComplexVector actual = ComplexOperations.actionMatrixVector(m, v);
+		assertEquals(expected, actual);
+	}
+
+    @Test
+    public void vectorInnerProductTest() throws Exception {
+		ComplexVector v1 = new ComplexVector(new ComplexNumber[]{new ComplexNumber(5,6), new ComplexNumber(3,2), new ComplexNumber(-7,0)});
+		ComplexVector v2 = new ComplexVector(new ComplexNumber[]{new ComplexNumber(7,8), new ComplexNumber(9,0), new ComplexNumber(1,2)});
+		ComplexNumber expected = new ComplexNumber(103, -34);
+		ComplexNumber actual = ComplexOperations.vectorInnerProduct(v1, v2);
+		assertEquals(expected, actual);
+    }
+
+	@Test
+	public void adjointTest() throws Exception {
+		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
+		m.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m.getMatrix()[0][1] = new ComplexNumber(9, 5);
+		m.getMatrix()[1][0] = new ComplexNumber(5, -6);
+		m.getMatrix()[1][1] = new ComplexNumber(1, 4);
+		ComplexMatrix expected = new ComplexMatrix(new ComplexNumber[2][2]);
+		expected.getMatrix()[0][0] = new ComplexNumber(3, -2);
+		expected.getMatrix()[0][1] = new ComplexNumber(5, 6);
+		expected.getMatrix()[1][0] = new ComplexNumber(9, -5);
+		expected.getMatrix()[1][1] = new ComplexNumber(1, -4);
+		ComplexMatrix actual = m.adjoint();
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void isHermitianMatrixTest() throws Exception {
+		ComplexMatrix m1 = new ComplexMatrix(new ComplexNumber[2][2]);
+		m1.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m1.getMatrix()[0][1] = new ComplexNumber(9, 5);
+		m1.getMatrix()[1][0] = new ComplexNumber(5, -6);
+		m1.getMatrix()[1][1] = new ComplexNumber(1, 4);
+		boolean actual = ComplexOperations.isHermitianMatrix(m1);
+		boolean expected = false;
+		assertEquals(expected, actual);
+
+	}
+
+	@Test
+	public void isUnitaryMatrixTest() throws Exception {
+		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
+		m.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m.getMatrix()[0][1] = new ComplexNumber(9, 5);
+		m.getMatrix()[1][0] = new ComplexNumber(5, -6);
+		m.getMatrix()[1][1] = new ComplexNumber(1, 4);
+		boolean actual = ComplexOperations.isUnitaryMatrix(m);
+		boolean expected = false;
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void tensorProductTest() throws Exception {
+		ComplexMatrix m1 = new ComplexMatrix(new ComplexNumber[2][2]);
+		m1.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		m1.getMatrix()[0][1] = new ComplexNumber(5, -1);
+		m1.getMatrix()[1][0] = new ComplexNumber(1, 2);
+		m1.getMatrix()[1][1] = new ComplexNumber(6, 0);
+		ComplexMatrix m2 = new ComplexMatrix(new ComplexNumber[3][3]);
+		m2.getMatrix()[0][0] = new ComplexNumber(1, 0);
+		m2.getMatrix()[0][1] = new ComplexNumber(3, 4);
+		m2.getMatrix()[0][2] = new ComplexNumber(5, -7);
+		m2.getMatrix()[1][0] = new ComplexNumber(10, 2);
+		m2.getMatrix()[1][1] = new ComplexNumber(6, 0);
+		m2.getMatrix()[1][2] = new ComplexNumber(2, 5);
+		m2.getMatrix()[2][0] = new ComplexNumber(0, 0);
+		m2.getMatrix()[2][1] = new ComplexNumber(1, 0);
+		m2.getMatrix()[2][2] = new ComplexNumber(2, 9);
+		ComplexMatrix expected = new ComplexMatrix(new ComplexNumber[6][6]);
+		expected.getMatrix()[0][0] = new ComplexNumber(3, 2);
+		expected.getMatrix()[0][1] = new ComplexNumber(1, 18);
+		expected.getMatrix()[0][2] = new ComplexNumber(29, -11);
+		expected.getMatrix()[0][3] = new ComplexNumber(5, 1);
+		expected.getMatrix()[0][4] = new ComplexNumber(19, 17);
+		expected.getMatrix()[0][5] = new ComplexNumber(18, -40);
+		expected.getMatrix()[1][0] = new ComplexNumber(26, 26);
+		expected.getMatrix()[1][1] = new ComplexNumber(18, 12);
+		expected.getMatrix()[1][2] = new ComplexNumber(-4, 19);
+		expected.getMatrix()[1][3] = new ComplexNumber(52, 0);
+		expected.getMatrix()[1][4] = new ComplexNumber(30, -6);
+		expected.getMatrix()[1][5] = new ComplexNumber(15, 23);
+		expected.getMatrix()[2][0] = new ComplexNumber(0, 0);
+		expected.getMatrix()[2][1] = new ComplexNumber(3, 2);
+		expected.getMatrix()[2][2] = new ComplexNumber(-12, 31);
+		expected.getMatrix()[2][3] = new ComplexNumber(0, 0);
+		expected.getMatrix()[2][4] = new ComplexNumber(5, 1);
+		expected.getMatrix()[2][5] = new ComplexNumber(19, 43);
+		expected.getMatrix()[3][0] = new ComplexNumber(1, 2);
+		expected.getMatrix()[3][1] = new ComplexNumber(-5, 10);
+		expected.getMatrix()[3][2] = new ComplexNumber(19, 3);
+		expected.getMatrix()[3][3] = new ComplexNumber(6, 0);
+		expected.getMatrix()[3][4] = new ComplexNumber(18, 24);
+		expected.getMatrix()[3][5] = new ComplexNumber(30, 42);
+		expected.getMatrix()[4][0] = new ComplexNumber(6, 22);
+		expected.getMatrix()[4][1] = new ComplexNumber(6, 12);
+		expected.getMatrix()[4][2] = new ComplexNumber(-8, 9);
+		expected.getMatrix()[4][3] = new ComplexNumber(60, 12);
+		expected.getMatrix()[4][4] = new ComplexNumber(36, 0);
+		expected.getMatrix()[4][5] = new ComplexNumber(12, 30);
+		expected.getMatrix()[5][0] = new ComplexNumber(0, 0);
+		expected.getMatrix()[5][1] = new ComplexNumber(1, 2);
+		expected.getMatrix()[5][2] = new ComplexNumber(-16, 13);
+		expected.getMatrix()[5][3] = new ComplexNumber(0, 0);
+		expected.getMatrix()[5][4] = new ComplexNumber(6, 0);
+		expected.getMatrix()[5][5] = new ComplexNumber(12, 54);
+		ComplexMatrix actual = ComplexOperations.tensorProduct(m1, m2);
+		assertEquals(expected, actual);
 	}
 }

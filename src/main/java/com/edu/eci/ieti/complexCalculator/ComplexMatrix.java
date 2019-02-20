@@ -47,6 +47,30 @@ public class ComplexMatrix {
 	}
 
 	/**
+	 * Calculates the adjoint of a matrix.
+	 * @return The adjoint of a matrix.
+	 * @throws Exception The matrix is not square.
+	 */
+	public ComplexMatrix adjoint() throws Exception {
+		if (matrix.length != matrix[0].length) {
+			throw new Exception("The matrix is not square");
+		} else {
+			ComplexMatrix r =null;
+			try {
+				r = new ComplexMatrix(new ComplexNumber[matrix.length][matrix.length]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			for (int i = 0; i < matrix.length;i++) {
+				for (int j = 0; j < matrix[0].length;j++) {
+					r.getMatrix()[i][j] = matrix[j][i].conjugate();
+				}
+			}
+			return r;
+		}
+	}
+
+	/**
 	 * Verifies if two matrices are equal.
 	 * @param o The object that is going to be compered.
 	 * @return True or false depending if the matrices are equal.

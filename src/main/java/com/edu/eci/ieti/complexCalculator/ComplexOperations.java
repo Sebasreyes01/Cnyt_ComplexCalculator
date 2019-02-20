@@ -171,12 +171,130 @@ public class ComplexOperations {
 			throw new Exception("The matrices are not square");
 		} else {
 			ComplexMatrix r = createMatrix(m1.getMatrix().length, m1.getMatrix()[0].length);
-			for (int i = 0; i < m2.getMatrix()[0].length;i++) {
-				for (int j = 0; j < m1.getMatrix()[0].length; j++) {
-					r.getMatrix()[i][j] = multiplication(m1.getMatrix()[i][j],m2.getMatrix()[j][i]);
+			ComplexNumber s = new ComplexNumber(0,0);
+			for (int m = 0; m < m1.getMatrix().length; m++) {
+				for (int n = 0; n < m1.getMatrix()[0].length; n++) {
+					for (int i = 0; i < m1.getMatrix().length; i++) {
+						s = sum(s, multiplication(m1.getMatrix()[m][i], m2.getMatrix()[i][n]));
+					}
+					r.getMatrix()[m][n] = s;
+					s = new ComplexNumber(0,0);
 				}
 			}
 			return r;
 		}
+	}
+
+	/**
+	 * Calculates the action of the matrix over the vector.
+ 	 * @param m The given matrix.
+	 * @param v The given vector.
+	 * @return The action of the matrix over the vector.
+	 * @throws Exception The length of the matrix's rows are different to the length of the vector.
+	 */
+	public static ComplexVector actionMatrixVector(ComplexMatrix m, ComplexVector v) throws Exception{
+		if (m.getMatrix()[0].length != v.getVector().length) {
+			throw new Exception("The length of the matrix's rows are different to the length of the vector");
+		} else {
+			ComplexVector r = new ComplexVector(new ComplexNumber[v.getVector().length]);
+			ComplexNumber s = new ComplexNumber(0,0);
+			for (int i = 0; i < v.getVector().length; i++) {
+				for (int j = 0; j < m.getMatrix()[0].length; j++) {
+					s = sum(s, multiplication(m.getMatrix()[i][j], v.getVector()[j]));
+				}
+				r.getVector()[i] = s;
+				s = new ComplexNumber(0,0);
+			}
+			return r;
+		}
+	}
+
+	/**
+	 * Calculates the inner product of 2 given vectors.
+	 * @param v1 The first given vector.
+	 * @param v2 The second given vector.
+	 * @return The inner product of 2 vectors.
+	 * @throws Exception The length of the 2 vectors is different.
+	 */
+	public static ComplexNumber vectorInnerProduct(ComplexVector v1, ComplexVector v2) throws Exception {
+		if (v1.getVector().length != v2.getVector().length) {
+			throw new Exception("The length of the 2 vectors is different");
+		} else {
+			ComplexVector vt = new ComplexVector(new ComplexNumber[v1.getVector().length]);
+			ComplexNumber r = new ComplexNumber(0,0);
+			for (int i = 0; i < v1.getVector().length; i++) {
+				vt.getVector()[i] = v1.getVector()[i].conjugate();
+			}
+			for (int i = 0; i < vt.getVector().length;i++) {
+				r = sum(r, multiplication(vt.getVector()[i], v2.getVector()[i]));
+			}
+			return r;
+		}
+	}
+
+//	public static ComplexNumber vectorNorm(ComplexVector v) throws Exception {
+//		ComplexVector v1 = v;
+//		ComplexVector v2 = v;
+//		ComplexNumber r = new ComplexNumber(0,0);
+//		r = Math.sqrt(vectorInnerProduct(v1, v2));
+//	}
+
+	/**
+	 * Determines if a matrix is hermitian.
+	 * @param m The given matrix.
+	 * @return True or false depending if the matrix is hermitian.
+	 * @throws Exception The matrix is not square.
+	 */
+	public static boolean isHermitianMatrix(ComplexMatrix m) throws Exception {
+		if (m.getMatrix().length != m.getMatrix()[0].length) {
+			throw new Exception("The matrix is not square");
+		} else {
+			return m.equals(m.adjoint());
+		}
+	}
+
+	/**
+	 * Determines if a matrix is unitary.
+	 * @param m The given matrix.
+	 * @return True or false depending if the matrix is unitary.
+	 * @throws Exception The matrix is not square.
+	 */
+	public static boolean isUnitaryMatrix(ComplexMatrix m) throws Exception {
+		if(m .getMatrix().length != m.getMatrix()[0].length) {
+			throw new Exception("The matrix is not square");
+		} else {
+			return matrixMultiplication(m, m.adjoint()).equals(matrixMultiplication(m.adjoint(), m));
+		}
+	}
+
+	/**
+	 * Calculates the tensor product of 2 complex matrices.
+	 * @param m1 The first given matrix.
+	 * @param m2 The second given matrix.
+	 * @return The tensor product of 2 given matrices.
+	 */
+	public static ComplexMatrix tensorProduct(ComplexMatrix m1, ComplexMatrix m2) {
+		ComplexMatrix r = createMatrix(m1.getMatrix().length * m2.getMatrix().length, m1.getMatrix()[0].length * m2.getMatrix()[0].length);
+		ComplexMatrix sp;
+		int m = 0;
+		int n = 0;
+		for (int i = 0; i < m1.getMatrix().length; i++) {
+			for (int j = 0; j < m1.getMatrix()[0].length; j++) {
+				sp = matrixScalarMultiplication(m1.getMatrix()[i][j], m2);
+				for(int k = 0; k < sp.getMatrix().length; k++) {
+					for(int l = 0; l < sp.getMatrix()[0].length; l++) {
+						r.getMatrix()[m][n] = sp.getMatrix()[k][l];
+						n++;
+					}
+					m++;
+					n = j * m2.getMatrix()[0].length;
+				}
+				m = i * m2.getMatrix().length;
+				n = (j + 1) * m2.getMatrix()[0].length;
+			}
+			m = (i + 1) * m2.getMatrix().length;
+			n = 0;
+		}
+		return r;
 	}
 }
