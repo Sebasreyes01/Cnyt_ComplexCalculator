@@ -328,4 +328,21 @@ public class ComplexOperationsTest {
 		ComplexMatrix actual = ComplexOperations.tensorProduct(m1, m2);
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void vectorNorm() {
+		double[] v = new double[]{3,-6,2};
+		double actual = ComplexOperations.vectorNorm(v);
+		double expected = 7;
+		assertEquals(expected, actual, 0);
+	}
+
+	@Test
+	public void vectorDistance() throws Exception {
+		double[] v1 = new double[]{3,1,2};
+		double[] v2 = new double[]{2,2,-1};
+		double expected = Math.sqrt(11);
+		double actual = ComplexOperations.vectorDistance(v1, v2);
+		assertEquals(expected, actual,0);
+	}
 }

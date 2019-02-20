@@ -232,12 +232,40 @@ public class ComplexOperations {
 		}
 	}
 
-//	public static ComplexNumber vectorNorm(ComplexVector v) throws Exception {
-//		ComplexVector v1 = v;
-//		ComplexVector v2 = v;
-//		ComplexNumber r = new ComplexNumber(0,0);
-//		r = Math.sqrt(vectorInnerProduct(v1, v2));
-//	}
+	/**
+	 * Calculates the norm of a real vector.
+	 * @param v The given real vector.
+	 * @return The norm of the vector.
+	 */
+	public static double vectorNorm(double[] v) {
+		double v2 = 0;
+		for (int i = 0; i < v.length; i++) {
+			v2 = v2 + v[i] * v[i];
+		}
+		double r = Math.sqrt(v2);
+		return r;
+	}
+
+	/**
+	 * Calculates the distance of 2 real vectors.
+	 * @param v1 The first given vector.
+	 * @param v2 The second given vector.
+	 * @return The distance between 2 real vectors.
+	 * @throws Exception The vector have different size.
+	 */
+	public static double vectorDistance(double[] v1, double[] v2) throws Exception{
+		if (v1.length != v2.length) {
+			throw new Exception("The vector have different size");
+		} else {
+			double s = 0;
+			for (int i = 0; i < v1.length; i++ ) {
+				s = s + ((v1[i] - v2[i]) * (v1[i] - v2[i]));
+			}
+			double r = Math.sqrt(s);
+			return r;
+		}
+
+	}
 
 	/**
 	 * Determines if a matrix is hermitian.
