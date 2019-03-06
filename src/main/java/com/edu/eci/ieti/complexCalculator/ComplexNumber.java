@@ -84,6 +84,19 @@ public class ComplexNumber {
 			return false;
 		}
 		ComplexNumber c = (ComplexNumber) o;
-		return Double.compare(realNumber, c.getRealNumber()) == 0 && Double.compare(imaginaryNumber, c.getImaginaryNumber()) == 0;
+		return Double.compare(round(realNumber), round(c.getRealNumber())) == 0 && Double.compare(round(imaginaryNumber), round(c.getImaginaryNumber())) == 0;
+	}
+
+	/**
+	 * Rounds a double to 5 decimals.
+	 * @param d The given double.
+	 * @return The double round to 5 decimals.
+	 */
+	private double round(double d) {
+		String s = Double.toString(d);
+		if(s.length() > 7) {
+			s = s.substring(0,7);
+		}
+		return Double.valueOf(s);
 	}
 }

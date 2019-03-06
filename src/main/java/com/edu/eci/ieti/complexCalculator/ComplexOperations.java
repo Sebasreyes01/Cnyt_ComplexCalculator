@@ -1,6 +1,9 @@
 package com.edu.eci.ieti.complexCalculator;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class ComplexOperations {
 
@@ -395,6 +398,58 @@ public class ComplexOperations {
 			m = (i + 1) * m2.getMatrix().length;
 			n = 0;
 		}
+		return r;
+	}
+
+	/**
+	 * Performs the marbles experiment.
+	 * @param A The matrix of the change of the state.
+	 * @param X The vector of the state.
+	 * @param t The amount of time clicks.
+	 * @return The state after t clicks.
+	 * @throws Exception he length of the matrix's rows are different to the length of the vector.
+	 */
+	public static ComplexVector marblesExperiment(ComplexMatrix A, ComplexVector X, int t) throws Exception {
+		ComplexVector r = X;
+		for (int i = 0; i < t; i++) {
+			r = actionMatrixVector(A, r);
+		}
+		return r;
+	}
+
+	/**
+	 * Calculates the multislit experiment.
+	 * @param slits The number of slits in the experiment
+	 * @param targets The number of targets in the experiment.
+	 * @param p The probabilities in each arrow. Ex. The probability between 0 and 1 must be gives as "0 1":1/2
+	 * @return A list with the matrix after 2 time clicks and the vector state.
+	 * @throws Exception The matrices are not square.
+	 */
+	public static ArrayList<Object> multiSlitExperiment(int slits, int targets, Map p) throws Exception {
+		ComplexMatrix A = createMatrix(slits+targets+1, slits+targets+1);
+		for(int i = 0; i < slits+targets+1; i++) {
+			for(int j = 0; j < slits+targets+1; j++) {
+				if(p.containsKey(Integer.toString(i) + " " + Integer.toString(j))) {
+					A.getMatrix()[j][i] = (ComplexNumber) p.get(Integer.toString(i) + " " + Integer.toString(j));
+				} else {
+					A.getMatrix()[j][i] = new ComplexNumber(0,0);
+				}
+			}
+		}
+		for (int i = 0; i < slits+1; i++) {
+			A.getMatrix()[i][i] = new ComplexNumber(0,0);
+		}
+		for (int i = slits + 1; i < slits+targets+1;i++) {
+			A.getMatrix()[i][i] = new ComplexNumber(1,0);
+		}
+		ComplexVector X = new ComplexVector(new ComplexNumber[slits+targets+1]);
+		X.getVector()[0] = new ComplexNumber(1, 0);
+		for (int i = 1; i < X.getVector().length;i++) {
+			X.getVector()[i] = new ComplexNumber(0,0);
+		}
+		ArrayList<Object> r = new ArrayList<>();
+		r.add(matrixMultiplication(A,A));
+		r.add(actionMatrixVector(matrixMultiplication(A,A), X));
 		return r;
 	}
 }

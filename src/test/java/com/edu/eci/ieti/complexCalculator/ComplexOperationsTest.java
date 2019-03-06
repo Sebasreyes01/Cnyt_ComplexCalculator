@@ -2,6 +2,9 @@ package com.edu.eci.ieti.complexCalculator;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class ComplexOperationsTest {
@@ -413,5 +416,122 @@ public class ComplexOperationsTest {
 		double expected = 2.45;
 		double actual = ComplexOperations.matrixDistance(m1, m2);
 		assertEquals(expected, actual, 0.1);
+	}
+
+	@Test
+	public void marblesExperimentTest() throws Exception {
+		ComplexMatrix A = new ComplexMatrix(new ComplexNumber[3][3]);
+		A.getMatrix()[0][0] = new ComplexNumber(1.0/Math.sqrt(2), 0);
+		A.getMatrix()[0][1] = new ComplexNumber(1.0/Math.sqrt(2), 0);
+		A.getMatrix()[0][2] = new ComplexNumber(0, 0);
+		A.getMatrix()[1][0] = new ComplexNumber(0, -1.0/Math.sqrt(2));
+		A.getMatrix()[1][1] = new ComplexNumber(0, 1.0/Math.sqrt(2));
+		A.getMatrix()[1][2] = new ComplexNumber(0, 0);
+		A.getMatrix()[2][0] = new ComplexNumber(0, 0);
+		A.getMatrix()[2][1] = new ComplexNumber(0, 0);
+		A.getMatrix()[2][2] = new ComplexNumber(0, 1);
+		ComplexVector X = new ComplexVector(new ComplexNumber[3]);
+		X.getVector()[0] = new ComplexNumber(1.0/Math.sqrt(3), 0);
+		X.getVector()[1] = new ComplexNumber(0, 2.0/Math.sqrt(15));
+		X.getVector()[2] = new ComplexNumber(Math.sqrt(2.0/5.0), 0);
+		ComplexVector expected = new ComplexVector(new ComplexNumber[3]);
+		expected.getVector()[0] = new ComplexNumber(1.0/Math.sqrt(6), 2.0/Math.sqrt(30));
+		expected.getVector()[1] = new ComplexNumber(-2.0/Math.sqrt(30), -Math.sqrt(5)/Math.sqrt(30));
+		expected.getVector()[2] = new ComplexNumber(0, Math.sqrt(2.0/5.0));
+		ComplexVector actual = ComplexOperations.marblesExperiment(A, X, 1);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void multiSlitExperimentTest() throws Exception {
+		int slits = 2;
+		int targets = 5;
+		Map<String, ComplexNumber> p = new HashMap<>();
+		p.put("0 1", new ComplexNumber(1.0/Math.sqrt(2), 0));
+		p.put("0 2", new ComplexNumber(1.0/Math.sqrt(2), 0));
+		p.put("1 3", new ComplexNumber(-1.0/Math.sqrt(6), 1.0/Math.sqrt(6)));
+		p.put("1 4", new ComplexNumber(-1.0/Math.sqrt(6), -1.0/Math.sqrt(6)));
+		p.put("1 5", new ComplexNumber(1.0/Math.sqrt(6), -1.0/Math.sqrt(6)));
+		p.put("2 5", new ComplexNumber(-1.0/Math.sqrt(6), 1.0/Math.sqrt(6)));
+		p.put("2 6", new ComplexNumber(-1.0/Math.sqrt(6), -1.0/Math.sqrt(6)));
+		p.put("2 7", new ComplexNumber(1.0/Math.sqrt(6), -1.0/Math.sqrt(6)));
+		ComplexMatrix expectedMatrix = new ComplexMatrix(new ComplexNumber[8][8]);
+		expectedMatrix.getMatrix()[0][0] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[0][1] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[0][2] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[0][3] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[0][4] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[0][5] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[0][6] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[0][7] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][0] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][1] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][2] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][3] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][4] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][5] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][6] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[1][7] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][0] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][1] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][2] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][3] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][4] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][5] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][6] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[2][7] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[3][0] = new ComplexNumber(-1.0/Math.sqrt(12), 1.0/Math.sqrt(12));
+		expectedMatrix.getMatrix()[3][1] = new ComplexNumber(-1.0/Math.sqrt(6), 1.0/Math.sqrt(6));
+		expectedMatrix.getMatrix()[3][2] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[3][3] = new ComplexNumber(1, 0);
+		expectedMatrix.getMatrix()[3][4] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[3][5] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[3][6] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[3][7] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[4][0] = new ComplexNumber(-1.0/Math.sqrt(12), -1.0/Math.sqrt(12));
+		expectedMatrix.getMatrix()[4][1] = new ComplexNumber(-1.0/Math.sqrt(6), -1.0/Math.sqrt(6));
+		expectedMatrix.getMatrix()[4][2] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[4][3] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[4][4] = new ComplexNumber(1, 0);
+		expectedMatrix.getMatrix()[4][5] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[4][6] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[4][7] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[5][0] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[5][1] = new ComplexNumber(1.0/Math.sqrt(6), -1.0/Math.sqrt(6));
+		expectedMatrix.getMatrix()[5][2] = new ComplexNumber(-1.0/Math.sqrt(6), 1.0/Math.sqrt(6));
+		expectedMatrix.getMatrix()[5][3] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[5][4] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[5][5] = new ComplexNumber(1, 0);
+		expectedMatrix.getMatrix()[5][6] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[5][7] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[6][0] = new ComplexNumber(-1.0/Math.sqrt(12), -1.0/Math.sqrt(12));
+		expectedMatrix.getMatrix()[6][1] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[6][2] = new ComplexNumber(-1.0/Math.sqrt(6), -1.0/Math.sqrt(6));
+		expectedMatrix.getMatrix()[6][3] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[6][4] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[6][5] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[6][6] = new ComplexNumber(1, 0);
+		expectedMatrix.getMatrix()[6][7] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[7][0] = new ComplexNumber(1.0/Math.sqrt(12), -1.0/Math.sqrt(12));
+		expectedMatrix.getMatrix()[7][1] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[7][2] = new ComplexNumber(1.0/Math.sqrt(6), -1.0/Math.sqrt(6));
+		expectedMatrix.getMatrix()[7][3] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[7][4] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[7][5] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[7][6] = new ComplexNumber(0, 0);
+		expectedMatrix.getMatrix()[7][7] = new ComplexNumber(1, 0);
+		ComplexMatrix actualMatrix = (ComplexMatrix) ComplexOperations.multiSlitExperiment(slits, targets, p).get(0);
+		ComplexVector expectedVector = new ComplexVector(new ComplexNumber[8]);
+		expectedVector.getVector()[0] = new ComplexNumber(0,0);
+		expectedVector.getVector()[1] = new ComplexNumber(0,0);
+		expectedVector.getVector()[2] = new ComplexNumber(0,0);
+		expectedVector.getVector()[3] = new ComplexNumber(-1.0/Math.sqrt(12), 1.0/Math.sqrt(12));
+		expectedVector.getVector()[4] = new ComplexNumber(-1.0/Math.sqrt(12), -1.0/Math.sqrt(12));
+		expectedVector.getVector()[5] = new ComplexNumber(0,0);
+		expectedVector.getVector()[6] = new ComplexNumber(-1.0/Math.sqrt(12), -1.0/Math.sqrt(12));
+		expectedVector.getVector()[7] = new ComplexNumber(1.0/Math.sqrt(12), -1.0/Math.sqrt(12));
+		ComplexVector actualVector = (ComplexVector) ComplexOperations.multiSlitExperiment(slits, targets, p).get(1);
+		assertEquals(expectedMatrix, actualMatrix);
+		assertEquals(expectedVector, actualVector);
 	}
 }
