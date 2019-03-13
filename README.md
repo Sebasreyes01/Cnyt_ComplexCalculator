@@ -26,6 +26,9 @@ This is a JAVA library of a calculator of complex numbers, complex vectors and c
 - Checking if a complex matrix is hermitian.
 - Checking if a complex matrix is unitary.
 - Tensor product of complex matrices.
+- The experiment of the marbles.
+- The experiment of the multislit.
+- The probability that a particle can be found at a given position.
 
 ## Getting Started
 
@@ -34,6 +37,18 @@ For use this library, clone the repository or download the zip of the repository
 ### Prerequisites
 
 You must have maven to compile this project. Go to https://maven.apache.org/ and follow the instructions to install it.
+
+### Using the library
+
+- Open a cmd in the folder of this library
+- Compile it, in the cmd type:
+  ```
+  mvn package
+  ```
+- Example to use the sum of 2 complex numbers.
+  ```
+  ComplexOperations.sum(complexNumber1, complexNumber2);
+  ```
 
 ## Running the tests
 
@@ -60,7 +75,7 @@ Example:
 
 ## Versioning
 
-Complex Calculator 1.0
+Complex Calculator 1.2
 
 ## Authors
 

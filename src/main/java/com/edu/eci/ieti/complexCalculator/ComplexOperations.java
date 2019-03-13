@@ -452,4 +452,20 @@ public class ComplexOperations {
 		r.add(actionMatrixVector(matrixMultiplication(A,A), X));
 		return r;
 	}
+
+	/**
+	 * Calculates the probability that a particle can be found at a given position.
+	 * @param state The state vector.
+	 * @param position The given position.
+	 * @return The probability.
+	 */
+	public static double probability(ComplexVector state, int position) {
+		Double n = 0.0;
+		for(int i = 0; i < state.getVector().length;i++) {
+			n += Math.pow(state.getVector()[i].modulus(), 2);
+		}
+		Double norm = Math.sqrt(n);
+		Double prob = Math.pow(state.getVector()[position].modulus(),2) / Math.pow(norm, 2);
+		return prob;
+	}
 }

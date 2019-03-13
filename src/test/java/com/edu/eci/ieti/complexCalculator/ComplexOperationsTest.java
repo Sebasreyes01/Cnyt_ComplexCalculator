@@ -534,4 +534,17 @@ public class ComplexOperationsTest {
 		assertEquals(expectedMatrix, actualMatrix);
 		assertEquals(expectedVector, actualVector);
 	}
+
+	@Test
+	public void probabilityTest() {
+		ComplexVector state = new ComplexVector(new ComplexNumber[4]);
+		state.getVector()[0] = new ComplexNumber(-3,-1);
+		state.getVector()[1] = new ComplexNumber(0,-2);
+		state.getVector()[2] = new ComplexNumber(0,1);
+		state.getVector()[3] = new ComplexNumber(2,0);
+		int position = 2;
+		Double expected = 0.052624;
+		Double actual = ComplexOperations.probability(state, position);
+		assertEquals(expected, actual, 0.0001);
+	}
 }
