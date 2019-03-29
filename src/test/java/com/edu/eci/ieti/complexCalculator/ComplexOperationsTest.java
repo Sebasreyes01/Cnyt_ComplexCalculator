@@ -633,8 +633,8 @@ public class ComplexOperationsTest {
 //		for (int i = 0; i < actual.getVector().length; i++) {
 //			System.out.println(expected.getVector()[i].equals(actual.getVector()[i]));
 //		}
-		assertEquals(actual, actual);
-//		assertEquals(expected, actual);
+//		assertEquals(actual, actual);
+		assertEquals(expected, actual);
 
 	}
 }

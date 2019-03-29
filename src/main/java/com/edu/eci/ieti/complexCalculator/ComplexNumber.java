@@ -84,7 +84,10 @@ public class ComplexNumber {
 			return false;
 		}
 		ComplexNumber c = (ComplexNumber) o;
+//		System.out.println(round(realNumber));
+//		System.out.println(round(c.getRealNumber()));
 		return Double.compare(round(realNumber), round(c.getRealNumber())) == 0 && Double.compare(round(imaginaryNumber), round(c.getImaginaryNumber())) == 0;
+//		return Double.compare(realNumber, c.getRealNumber()) == 0 && Double.compare(imaginaryNumber, c.getImaginaryNumber()) == 0;
 	}
 
 	/**

@@ -492,13 +492,9 @@ public class ComplexOperations {
 	 * @throws Exception The matrix is not hermitian.
 	 */
 	public static ComplexNumber meanValue(ComplexVector ket, ComplexMatrix observable) throws Exception {
-		if (isHermitianMatrix(observable)) {
 			ComplexVector omegaKet = actionMatrixVector(observable, ket);
 			ComplexNumber ans = vectorInnerProduct(omegaKet, ket);
 			return ans;
-		} else {
-			throw new Exception("The matrix is not hermitian");
-		}
 
 	}
 
@@ -510,7 +506,6 @@ public class ComplexOperations {
 	 * @throws Exception The matrix is not hermitian.
 	 */
 	public static ComplexNumber variance(ComplexVector ket, ComplexMatrix observable) throws Exception {
-		if (isHermitianMatrix(observable)) {
 			ComplexNumber mean = meanValue(ket, observable);
 			ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
 			m.getMatrix()[0][0] = mean;
@@ -522,9 +517,6 @@ public class ComplexOperations {
 			ComplexVector act = actionMatrixVector(temp, ket);
 			ComplexNumber ans = vectorInnerProduct(ket, act);
 			return ans;
-		} else {
-			throw new Exception("The matrix is not hermitian");
-		}
 
 	}
 
