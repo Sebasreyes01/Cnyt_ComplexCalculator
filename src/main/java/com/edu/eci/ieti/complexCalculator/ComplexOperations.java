@@ -489,21 +489,50 @@ public class ComplexOperations {
 	 * @return The mean value.
 	 * @throws Exception The length of the matrix's rows are different to the length of the vector.
 	 * @throws Exception The length of the 2 vectors is different.
+	 * @throws Exception The matrix is not hermitian.
 	 */
 	public static ComplexNumber meanValue(ComplexVector ket, ComplexMatrix observable) throws Exception {
-		ComplexVector omegaKet = actionMatrixVector(observable, ket);
-		ComplexNumber ans = vectorInnerProduct(omegaKet, ket);
-		return ans;
+		if (isHermitianMatrix(observable)) {
+			ComplexVector omegaKet = actionMatrixVector(observable, ket);
+			ComplexNumber ans = vectorInnerProduct(omegaKet, ket);
+			return ans;
+		} else {
+			throw new Exception("The matrix is not hermitian");
+		}
+
 	}
 
-//	public static ComplexNumber variance(ComplexVector ket, ComplexMatrix observable) throws Exception {
-//		ComplexNumber mean = meanValue(ket, observable);
-//		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
-//		m.getMatrix()[0][0] = mean;
-//		m.getMatrix()[0][1] = new ComplexNumber(0, 0);
-//		m.getMatrix()[1][0] = new ComplexNumber(0, 0);
-//		m.getMatrix()[1][1] = mean;
-//		ComplexMatrix temp = matrixMultiplication(matrixAddition(observable, m.inverse()), matrixAddition(observable, m.inverse()));
-//		ComplexVector v = actionMatrixVector(temp, ket);
-//	}
+	/**
+	 * Calculates the variance.
+	 * @param ket The vector ket.
+	 * @param observable The matrix observable.
+	 * @return The variance.
+	 * @throws Exception The matrix is not hermitian.
+	 */
+	public static ComplexNumber variance(ComplexVector ket, ComplexMatrix observable) throws Exception {
+		if (isHermitianMatrix(observable)) {
+			ComplexNumber mean = meanValue(ket, observable);
+			ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
+			m.getMatrix()[0][0] = mean;
+			m.getMatrix()[0][1] = new ComplexNumber(0, 0);
+			m.getMatrix()[1][0] = new ComplexNumber(0, 0);
+			m.getMatrix()[1][1] = mean;
+			ComplexMatrix subtraction = matrixAddition(observable, m.inverse());
+			ComplexMatrix temp = matrixMultiplication(subtraction, subtraction);
+			ComplexVector act = actionMatrixVector(temp, ket);
+			ComplexNumber ans = vectorInnerProduct(ket, act);
+			return ans;
+		} else {
+			throw new Exception("The matrix is not hermitian");
+		}
+
+	}
+
+	public static ComplexVector dynamics(ComplexMatrix Un, ComplexVector initialState, int n) throws Exception {
+		ComplexMatrix temp = Un;
+		for (int i = 0; i < n; i++) {
+			temp = matrixMultiplication(temp, Un);
+		}
+		return actionMatrixVector(temp, initialState);
+	}
 }

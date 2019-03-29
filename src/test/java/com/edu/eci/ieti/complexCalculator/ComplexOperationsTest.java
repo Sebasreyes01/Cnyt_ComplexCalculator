@@ -575,4 +575,60 @@ public class ComplexOperationsTest {
 		ComplexNumber actual = ComplexOperations.meanValue(ket, observable);
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void varianceTest() throws Exception {
+		ComplexVector ket = new ComplexVector(new ComplexNumber[2]);
+		ket.getVector()[0] = new ComplexNumber(Math.sqrt(2) / 2, 0);
+		ket.getVector()[1] = new ComplexNumber(0, Math.sqrt(2) / 2);
+		ComplexMatrix observable = new ComplexMatrix(new ComplexNumber[2][2]);
+		observable.getMatrix()[0][0] = new ComplexNumber(1, 0);
+		observable.getMatrix()[0][1] = new ComplexNumber(0, -1);
+		observable.getMatrix()[1][0] = new ComplexNumber(0, 1);
+		observable.getMatrix()[1][1] = new ComplexNumber(2, 0);
+		ComplexNumber expected = new ComplexNumber(0.25, 0);
+		ComplexNumber actual = ComplexOperations.variance(ket, observable);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void dynamicsTest() throws Exception{
+		ComplexVector initialState = new ComplexVector(new ComplexNumber[4]);
+		initialState.getVector()[0] = new ComplexNumber(1, 0);
+		initialState.getVector()[1] = new ComplexNumber(0,0);
+		initialState.getVector()[2] = new ComplexNumber(0,0);
+		initialState.getVector()[3] = new ComplexNumber(0,0);
+		ComplexMatrix Un = new ComplexMatrix(new ComplexNumber[4][4]);
+		Un.getMatrix()[0][0] = new ComplexNumber(0,0);
+		Un.getMatrix()[0][1] = new ComplexNumber(1/Math.sqrt(2), 0);
+		Un.getMatrix()[0][2] = new ComplexNumber(1/Math.sqrt(2), 0);
+		Un.getMatrix()[0][3] = new ComplexNumber(0,0);
+		Un.getMatrix()[1][0] = new ComplexNumber(0, 1/Math.sqrt(2));
+		Un.getMatrix()[1][1] = new ComplexNumber(0,0);
+		Un.getMatrix()[1][2] = new ComplexNumber(0,0);
+		Un.getMatrix()[1][3] = new ComplexNumber(1/Math.sqrt(2), 0);
+		Un.getMatrix()[2][0] = new ComplexNumber(1/Math.sqrt(2), 0);
+		Un.getMatrix()[2][1] = new ComplexNumber(0,0);
+		Un.getMatrix()[2][2] = new ComplexNumber(0,0);
+		Un.getMatrix()[2][3] = new ComplexNumber(0, 1/Math.sqrt(2));
+		Un.getMatrix()[3][0] = new ComplexNumber(0,0);
+		Un.getMatrix()[3][1] = new ComplexNumber(1/Math.sqrt(2), 0);
+		Un.getMatrix()[3][2] = new ComplexNumber(-1/Math.sqrt(2), 0);
+		Un.getMatrix()[3][3] = new ComplexNumber(0,0);
+		ComplexVector expected = new ComplexVector(new ComplexNumber[4]);
+		expected.getVector()[0] = new ComplexNumber(-0.4999, 0.49999);
+		expected.getVector()[1] = new ComplexNumber(0,0);
+		expected.getVector()[2] = new ComplexNumber(0,0);
+		expected.getVector()[3] = new ComplexNumber(-0.4999, 0.49999);
+		ComplexVector actual = ComplexOperations.dynamics(Un, initialState, 3);
+//		for (int i = 0; i < actual.getVector().length; i++) {
+//			System.out.println("actual: " + actual.getVector()[i].getComplexNumber());
+//			System.out.println("expected: " + expected.getVector()[i].getComplexNumber());
+//		}
+//		for (int i = 0; i < actual.getVector().length; i++) {
+//			System.out.println(expected.getVector()[i].equals(actual.getVector()[i]));
+//		}
+		assertEquals(expected, actual);
+
+	}
 }
