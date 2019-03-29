@@ -528,11 +528,11 @@ public class ComplexOperations {
 
 	}
 
-	public static ComplexVector dynamics(ComplexMatrix Un, ComplexVector initialState, int n) throws Exception {
-		ComplexMatrix temp = Un;
-		for (int i = 0; i < n; i++) {
-			temp = matrixMultiplication(temp, Un);
+	public static ComplexVector dynamics(ComplexMatrix[] matrixArray, ComplexVector initialState) throws Exception {
+                ComplexVector ans = actionMatrixVector(matrixArray[0], initialState);
+		for (int i = 1; i < matrixArray.length; i++) {
+			ans = actionMatrixVector(matrixArray[1], ans);
 		}
-		return actionMatrixVector(temp, initialState);
+		return ans;
 	}
 }
