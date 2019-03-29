@@ -407,7 +407,7 @@ public class ComplexOperations {
 	 * @param X The vector of the state.
 	 * @param t The amount of time clicks.
 	 * @return The state after t clicks.
-	 * @throws Exception he length of the matrix's rows are different to the length of the vector.
+	 * @throws Exception The length of the matrix's rows are different to the length of the vector.
 	 */
 	public static ComplexVector marblesExperiment(ComplexMatrix A, ComplexVector X, int t) throws Exception {
 		ComplexVector r = X;
@@ -468,4 +468,42 @@ public class ComplexOperations {
 		Double prob = Math.pow(state.getVector()[position].modulus(),2) / Math.pow(norm, 2);
 		return prob;
 	}
+
+	/**
+	 * Calculates the likelihood of transition from one state to another.
+	 * @param startState The state before measurement.
+	 * @param endState The state after measurement.
+	 * @return The probability of transition from one state to another.
+	 * @throws Exception The length of the 2 vectors is different.
+	 */
+	public static ComplexNumber transitionAmplitude(ComplexVector startState, ComplexVector endState) throws Exception {
+		ComplexVector bra = endState.conjugate();
+		ComplexNumber ans = vectorInnerProduct(endState, startState);
+		return ans;
+	}
+
+	/**
+	 * Calculates the mean value.
+	 * @param ket The vector ket.
+	 * @param observable The matrix of the observable.
+	 * @return The mean value.
+	 * @throws Exception The length of the matrix's rows are different to the length of the vector.
+	 * @throws Exception The length of the 2 vectors is different.
+	 */
+	public static ComplexNumber meanValue(ComplexVector ket, ComplexMatrix observable) throws Exception {
+		ComplexVector omegaKet = actionMatrixVector(observable, ket);
+		ComplexNumber ans = vectorInnerProduct(omegaKet, ket);
+		return ans;
+	}
+
+//	public static ComplexNumber variance(ComplexVector ket, ComplexMatrix observable) throws Exception {
+//		ComplexNumber mean = meanValue(ket, observable);
+//		ComplexMatrix m = new ComplexMatrix(new ComplexNumber[2][2]);
+//		m.getMatrix()[0][0] = mean;
+//		m.getMatrix()[0][1] = new ComplexNumber(0, 0);
+//		m.getMatrix()[1][0] = new ComplexNumber(0, 0);
+//		m.getMatrix()[1][1] = mean;
+//		ComplexMatrix temp = matrixMultiplication(matrixAddition(observable, m.inverse()), matrixAddition(observable, m.inverse()));
+//		ComplexVector v = actionMatrixVector(temp, ket);
+//	}
 }

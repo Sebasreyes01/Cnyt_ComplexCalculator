@@ -29,6 +29,9 @@ This is a JAVA library of a calculator of complex numbers, complex vectors and c
 - The experiment of the marbles.
 - The experiment of the multislit.
 - The probability that a particle can be found at a given position.
+- The probability of transitioning from one state to another.
+- The mean value.
+- The variance
 
 ## Getting Started
 

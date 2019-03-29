@@ -547,4 +547,32 @@ public class ComplexOperationsTest {
 		Double actual = ComplexOperations.probability(state, position);
 		assertEquals(expected, actual, 0.0001);
 	}
+
+	@Test
+	public void transitionAmplitudeTest() throws Exception {
+		ComplexVector startState = new ComplexVector(new ComplexNumber[2]);
+		startState.getVector()[0] = new ComplexNumber(Math.sqrt(2) / 2, 0);
+		startState.getVector()[1] = new ComplexNumber(0, Math.sqrt(2) / 2);
+		ComplexVector endState = new ComplexVector(new ComplexNumber[2]);
+		endState.getVector()[0] = new ComplexNumber(0,Math.sqrt(2) / 2);
+		endState.getVector()[1] = new ComplexNumber(-Math.sqrt(2) / 2, 0);
+		ComplexNumber expected = new ComplexNumber(0, -1);
+		ComplexNumber actual = ComplexOperations.transitionAmplitude(startState, endState);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void meanValueTest() throws Exception {
+		ComplexVector ket = new ComplexVector(new ComplexNumber[2]);
+		ket.getVector()[0] = new ComplexNumber(Math.sqrt(2) / 2, 0);
+		ket.getVector()[1] = new ComplexNumber(0, Math.sqrt(2) / 2);
+		ComplexMatrix observable = new ComplexMatrix(new ComplexNumber[2][2]);
+		observable.getMatrix()[0][0] = new ComplexNumber(1, 0);
+		observable.getMatrix()[0][1] = new ComplexNumber(0, -1);
+		observable.getMatrix()[1][0] = new ComplexNumber(0, 1);
+		observable.getMatrix()[1][1] = new ComplexNumber(2, 0);
+		ComplexNumber expected = new ComplexNumber(2.5, 0);
+		ComplexNumber actual = ComplexOperations.meanValue(ket, observable);
+		assertEquals(expected, actual);
+	}
 }
